@@ -15,6 +15,8 @@
 
 	var nave = [];
 
+	var missels = [];
+
 	var assetsToLoad =[];
 
 	//sprites
@@ -22,7 +24,7 @@
 	sprites.push(background);
 
 	//nave
-	var defender = new Sprite(0,0,45,41,185,450);
+	var defender = new Sprite(0,0,82,66,185,400);
 	nave.push(defender);
 
 
@@ -37,6 +39,10 @@
 	nav.src = 'imagens/nave.png';
 
 
+	var misse = new Image();
+	misse.src = 'imagens/missel.png';
+
+
 	//contador de recursos
 	var loadedAssets = 0;
 
@@ -46,7 +52,7 @@
 
 
 	//Direções
-	var mvLeft = mvRight = false;
+	var mvLeft = mvRight = shoot = spaceIsDown = false;
 
 
 	// Estados do jogo
@@ -65,6 +71,13 @@
 				break;
 			case RIGHT:
 				mvRight = true;
+				break;
+
+			case SPACE:
+				if(!spaceIsDown){
+					shoot = true;
+					spaceIsDown = true;
+				}
 				break;
 		}
 
@@ -86,6 +99,11 @@
 				} else {
 					gameState = PAUSED;
 				}
+				break;
+			case SPACE:
+					spaceIsDown = false;
+				
+				break;
 		}
 
 	},false);
@@ -108,6 +126,7 @@
 		}
 
 	}
+	
 
 	function loop(){
 		requestAnimationFrame(loop,cnv);
@@ -137,11 +156,32 @@
 		if(!mvLeft && !mvRight){
 			defender.x += 0;
 		}
-
-
-
-
+		if(shoot){
+			fireMissile();
+			shoot = false;
+		}
 		//defender.x = Math.max(0,Math.min(cnv.width - defender.width, defender.x+ defender.vx))
+
+		if(defender.x < 0){
+			defender.x = 0;
+		}
+		for (var i in missels){
+			var t = missels[i];
+			t.y += -8;
+		}
+
+
+
+
+		
+	}
+	function fireMissile(){
+		var missile = new Sprite(0,0,36,53,defender.centerX() - 4, defender.y - 13);
+		missile.vy = -8;
+
+		missels.push(missile);
+
+		
 	}
 
 	function render(){
@@ -159,6 +199,14 @@
 				ctx.drawImage(nav,sp.sourceX, sp.sourceY,sp.width,sp.height,Math.floor(sp.x),Math.floor(sp.y),sp.width,sp.height);
 			}
 		}
+		if(missels.length !== 0){
+			for(var i in missels){
+				var mi = missels[i];
+				ctx.drawImage(misse,mi.sourceX, mi.sourceY,mi.width,mi.height,Math.floor(mi.x),Math.floor(mi.y),mi.width,mi.height);
+			}
+		}
+
+		
 		
 	}
 

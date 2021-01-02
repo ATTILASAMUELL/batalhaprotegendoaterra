@@ -9,6 +9,7 @@ var Sprite = function(sourceX, sourceY, width, height, x,y){
 	this.y = y; // posição em y para ser exibido na tela
 	this.vx = 0; // velocidade em x deslocamento
 	this.vy = 0; // velocidade em y deslocamento
+	
 
 }
 
@@ -25,3 +26,6 @@ Sprite.prototype.halfWidth = function(){
 Sprite.prototype.halfHeight = function(){
 	return this.height/2;
 }
+
+
+
