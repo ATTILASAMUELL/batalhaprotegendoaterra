@@ -136,6 +136,7 @@
 		switch(gameState){
 			case LOADING:
 				console.log('loading...');
+				console.log('Desenvolvido - por: ATTILA SAMUELL NUNES TABORY')
 				break;
 			case PLAYING:
 				update();
