@@ -19,6 +19,14 @@
 
 	var assetsToLoad =[];
 
+	var aliens =[];
+
+
+	//  Duas variaveis para identificar a criação dos aliens:
+	var alienFrequency = 100;
+	var alienTime = 0;
+
+
 	//sprites
 	var background = new Sprite(0,0,600,500,0,0);
 	sprites.push(background);
@@ -29,7 +37,7 @@
 
 
 
-	//imagem:
+	//imagens:
 	var img = new Image();
 	img.addEventListener('load', loadHandler,false);
 	img.src = "imagens/espaco2.jpg";
@@ -41,6 +49,9 @@
 
 	var misse = new Image();
 	misse.src = 'imagens/missel.png';
+
+	var alienss = new Image();
+	alienss.src = 'imagens/alien.png';
 
 
 	//contador de recursos
@@ -127,6 +138,7 @@
 
 	}
 	
+	
 
 	function loop(){
 		requestAnimationFrame(loop,cnv);
@@ -171,6 +183,32 @@
 			t.y += -8;
 		}
 
+		// Encremento do alienTimer:
+		alienTime ++;
+
+		if (alienTime === alienFrequency){
+			funcaocriaalien();
+			alienTime = 0;
+
+
+			//ajuste na frequencia de criação de alien:
+
+			if(alienFrequency > 2){
+				alienFrequency --;
+			}
+
+		}
+
+		//atualizando posição dos aliens:
+
+		for (var i in aliens){
+			var alien = aliens[i];
+			if (alien.STATE !== alien.EXPLODED){
+				alien.y+= 4;
+			}
+		}
+
+
 
 
 
@@ -183,6 +221,12 @@
 		missels.push(missile);
 
 		
+	}
+	function funcaocriaalien(){
+		var alienPosicao = (Math.floor(Math.random()* 8 )) * 50;
+		var alien = new Alien(0,0, 90,68,alienPosicao,- 70);
+		aliens.push(alien);
+
 	}
 
 	function render(){
@@ -205,6 +249,13 @@
 				var mi = missels[i];
 				ctx.drawImage(misse,mi.sourceX, mi.sourceY,mi.width,mi.height,Math.floor(mi.x),Math.floor(mi.y),mi.width,mi.height);
 			}
+		}
+		if(aliens.length !== 0){
+			for(var i in aliens){
+				var al = aliens[i];
+				ctx.drawImage(alienss,al.sourceX, al.sourceY,al.width,al.height,Math.floor(al.x),Math.floor(al.y),al.width,al.height);
+			}
+
 		}
 
 		
