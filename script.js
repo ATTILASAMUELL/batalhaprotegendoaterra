@@ -178,6 +178,9 @@
 		if(defender.x < 0){
 			defender.x = 0;
 		}
+		if(defender.x + defender.width > cnv.width){
+			defender.x = 318;
+		}
 		for (var i in missels){
 			var t = missels[i];
 			t.y += -8;
@@ -204,7 +207,13 @@
 		for (var i in aliens){
 			var alien = aliens[i];
 			if (alien.STATE !== alien.EXPLODED){
-				alien.y+= 4;
+				alien.y+= 2;
+			}
+			if (alien.x + alien.width > cnv.width){
+				alien.x = 310;
+			}
+			if (alien.x + alien.width < 0){
+				alien.x = 0;
 			}
 		}
 
