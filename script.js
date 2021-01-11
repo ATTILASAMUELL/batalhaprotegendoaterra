@@ -169,8 +169,9 @@
 		if(!mvLeft && !mvRight){
 			defender.x += 0;
 		}
+		//dispara canhao
 		if(shoot){
-			fireMissile();
+			criandoMissel();
 			shoot = false;
 		}
 		//defender.x = Math.max(0,Math.min(cnv.width - defender.width, defender.x+ defender.vx))
@@ -181,9 +182,17 @@
 		if(defender.x + defender.width > cnv.width){
 			defender.x = 318;
 		}
+
+		// atualizando posição dos missels
 		for (var i in missels){
 			var t = missels[i];
 			t.y += -8;
+			if(t.y < -13){
+
+				removeObjetos(t,missels)
+
+
+			}
 		}
 
 		// Encremento do alienTimer:
@@ -215,21 +224,33 @@
 			if (alien.x + alien.width < 0){
 				alien.x = 0;
 			}
+
 		}
 
+		console.log(missels)
 
 
 
 
 		
 	}
-	function fireMissile(){
-		var missile = new Sprite(0,0,36,53,defender.centerX() - 4, defender.y - 13);
+	//criação dos missels funçao
+	function criandoMissel(){
+		var missile = new Sprite(0,0,36,53,defender.centerX() - 15, defender.y - 13);
 		missile.vy = -8;
 
 		missels.push(missile);
 
 		
+	}
+
+	//remove os missels e alienigenas, para não lotar memoria
+
+	function removeObjetos(objetoRemove,array){
+		let i = array.indexOf(objetoRemove);
+		if (i !== -1){
+			array.splice(i, 1);
+		} 
 	}
 	function funcaocriaalien(){
 		var alienPosicao = (Math.floor(Math.random()* 8 )) * 50;
