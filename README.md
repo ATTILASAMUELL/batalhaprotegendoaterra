@@ -7,6 +7,7 @@ Jogo: Protegendo a terra
 
 Obs: Precisa muitas melhorias...
 
+<<<<<<< HEAD
 ![capa_melhorada](https://user-images.githubusercontent.com/76443540/104251637-ede01500-544e-11eb-946b-3bdc9afcfbfc.png)
 
 
