@@ -186,7 +186,7 @@
 		// atualizando posição dos missels
 		for (var i in missels){
 			var t = missels[i];
-			t.y += -8;
+			t.y += t.vy;
 			if(t.y < -13){
 
 				removeObjetos(t,missels)
@@ -214,25 +214,28 @@
 		//atualizando posição dos aliens:
 
 		for (var i in aliens){
-			var alien = aliens[i];
-			if (alien.STATE !== alien.EXPLODED){
-				alien.y+= 2;
+			var alienn = aliens[i];
+			if (alienn.STATE !== alienn.EXPLODED){
+				alienn.y+= alienn.vy;
+				//ALTERANDO POSIÇÃO QUANDO FOR CRAZY ESTADO DO ALIEN
+				if(alienn.state === alienn.CRAZY){
+					if(alienn.x >310|| alienn.x <0){
+						alienn.vx *= -1;
+					}
+					alienn.x += alienn.vx;
+				}
 			}
-			if (alien.x + alien.width > cnv.width){
-				alien.x = 310;
-			}
-			if (alien.x + alien.width < 0){
-				alien.x = 0;
-			}
+			//confere se algum alien chegou a terra
+			if(alienn.y > cnv.height + alienn.height){
+				// fim do movimentação dos aliens
+				
+				gameState = OVER;
 
 		}
-
-		console.log(missels)
-
-
-
+		}
 
 		
+			
 	}
 	//criação dos missels funçao
 	function criandoMissel(){
@@ -253,8 +256,27 @@
 		} 
 	}
 	function funcaocriaalien(){
-		var alienPosicao = (Math.floor(Math.random()* 8 )) * 50;
+		var alienPosicao = (Math.floor(Math.random()* 4 )) * 100;
+		
 		var alien = new Alien(0,0, 90,68,alienPosicao,- 70);
+		alien.vy = 1
+
+		//otimização do alien : ALTERANDO A VELOCIDADE DO ALIEN
+		if(Math.floor(Math.random()*11)>7){
+			 
+			alien.state = alien.CRAZY
+
+			alien.vx=5
+
+			
+		}
+
+		if(Math.floor(Math.random()*11)>5){
+			alien.vy = 2
+		}
+
+
+
 		aliens.push(alien);
 
 	}

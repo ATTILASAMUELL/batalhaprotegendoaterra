@@ -1,5 +1,6 @@
 
-//objeto esqueleto
+
+//objeto esqueleto´principal:
 var Sprite = function(sourceX, sourceY, width, height, x,y){
 	this.sourceX = sourceX; // captura da imagem em x
 	this.sourceY = sourceY; // captura da imagem em y
@@ -31,6 +32,9 @@ Sprite.prototype.halfHeight = function(){
 // CRIANDO INIMIGOS:
 // Alien que herda de Sprite(Objeto):
 
+
+//Herança
+
 var Alien = function(sourceX, sourceY, width, height, x,y){
 	Sprite.call(this,sourceX, sourceY, width, height, x,y);
 	this.NORMAL = 1;
@@ -44,8 +48,8 @@ var Alien = function(sourceX, sourceY, width, height, x,y){
 Alien.prototype = Object.create(Sprite.prototype);
 
 Alien.prototype.explode = function(){
-	this.sourceX= 80;
-	this.width = this.height = 56;
+	this.sourceX= 90;
+	this.width = this.height = 68;
 
 }
 
